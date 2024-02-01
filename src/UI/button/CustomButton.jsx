@@ -2,7 +2,7 @@ import React from 'react';
 
 const CustomButton = ({children, ...props}) => {
     return (
-        <button {...props}>
+        <button type="button" {...props}>
             {children}
         </button>
     );

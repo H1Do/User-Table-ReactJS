@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import CustomTable from './UI/table/CustomTable';
+import SearchForm from './SearchForm';
 
 function App() {
   const URL = 'https://dummyjson.com/users'
+
   const [data, setData] = useState([]);
+  const [parameters, setParameters] = useState("");
 
-
-  function getData(url) {
-    fetch(url)
+  function getData(url, parameters) {
+    fetch(url + parameters)
       .then(res => res.json())
       .then(result => {
-        setData(result.users);
+        if (result.users) {
+          setData(result.users);
+        }
         console.log(result);
       })
+      .catch(error => { throw error })
   }
 
-  function toArrayData(objectsArray) {
+
+  function ObjectsToArrays(objectsArray) {
     return objectsArray.map(user =>
       [
         user.lastName + ' ' + user.firstName + ' ' + user.maidenName,
@@ -29,16 +35,22 @@ function App() {
   }
 
   const tableHeaders = ["ФИО", "Возраст", "Пол", "Номер телефона", "Адрес"]
-  const tableRows = toArrayData(data)
+  const tableRows = ObjectsToArrays(data)
 
   useEffect(() => {
-    getData(URL);
-  }, []);
-
+    getData(URL, parameters);
+  }, [parameters]);
 
   return (
     <div className="App">
-      <CustomTable tableHeaders={tableHeaders} tableRows={tableRows} />
+      <SearchForm setValue={setParameters} />
+      {
+        tableRows.length
+        ?
+        <CustomTable tableHeaders={tableHeaders} tableRows={tableRows} />
+        :
+        <h1>Ничего не найдено</h1>
+      }
     </div>
   );
 }

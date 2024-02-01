@@ -17,13 +17,13 @@ const CustomTable = ({ tableHeaders, tableRows, ...props }) => {
         {
           tableRows.map((row, rowIndex) => (
             <tr key={rowIndex}>
-            {
-              row.map((cell, cellIndex) => (
-                <td key={cellIndex}>
-                  {cell}
-                </td>
-              ))
-            }
+              {
+                row.map((cell, cellIndex) => (
+                  <td key={cellIndex}>
+                    {cell}
+                  </td>
+                ))
+              }
             </tr>
           ))
         }

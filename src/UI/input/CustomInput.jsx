@@ -1,8 +1,10 @@
 import React from 'react';
 
-const CustomInput = (props) => {
+const CustomInput = ({text, setText, ...props}) => {
     return (
-        <input {...props} type="text"></input>
+        <input {...props} type="text" value={text} onChange={
+            (e) => setText(e.target.value)
+        }></input>
     );
 }
 
