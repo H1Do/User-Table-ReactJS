@@ -27,10 +27,13 @@ const SearchForm = ({ setValue, ...props }) => {
   }
 
   return (
-    <form {...props} className={styles.searchForm}>
+    <form {...props} onSubmit={(e) => {
+      e.preventDefault();
+      searchFunction();
+    }} className={styles.searchForm}>
       <span>Искать по</span>
       <CustomSelect option={searchOption} options={selectOptions} setOption={setSearchOption} />
-      <CustomInput text={searchQuery} setText={setSearchQuery} placeholder="Введите запрос"/>
+      <CustomInput text={searchQuery} setText={setSearchQuery} placeholder="Введите запрос (Регистры учитываются)" />
       <CustomButton onClick={searchFunction}>Поиск</CustomButton>
     </form>
   );
