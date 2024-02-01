@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
-import CustomTable from './UI/table/CustomTable';
-import SearchForm from './SearchForm';
+import CustomTable from './components/UI/table/CustomTable';
+import SearchForm from './components/SearchForm';
 
 function App() {
   const URL = 'https://dummyjson.com/users'
@@ -16,7 +16,6 @@ function App() {
         if (result.users) {
           setData(result.users);
         }
-        console.log(result);
       })
       .catch(error => { throw error })
   }

@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './CustomSelect.module.scss'
 
 const CustomSelect = ({ setOption, options, ...props }) => {
   return (
-    <select {...props} onChange={(e) => {
+    <select className={styles.customSelect} {...props} onChange={(e) => {
         setOption(e.target.value);
       }
     }>
