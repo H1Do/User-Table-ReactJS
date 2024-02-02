@@ -15,12 +15,12 @@
     .tableCellInner {
         display: flex;
         flex-direction: column;
-        font-size: 1.5em;
+        font-size: clamp(0.7em, 2vw, 1.5em);
 
         button {
             cursor: pointer;
-            font-size: 0.5em;
-            height: 60px;
+            font-size: 0.75em;
+            min-height: 5em;
         }
     }
 
