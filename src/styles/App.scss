@@ -9,4 +9,8 @@
 
     background: linear-gradient(to right, #25c481, #25b7c4);
     color: #fff;
+
+    h1 {
+        margin: clamp(5px, 1.3vw, 25px);
+    }
 }

@@ -1,0 +1,33 @@
+.customModal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  background: rgba(0,0,0,0.5);
+
+  &Content {
+    position: relative;
+    padding: 25px;
+    background: linear-gradient(to right, #25c481, #25b7c4);;
+    border-radius: 16px;
+    min-width: 250px;
+
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 0;
+      width: 30px;
+      border-radius: 50%;
+      aspect-ratio: 1;
+    }
+  }
+
+  &.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

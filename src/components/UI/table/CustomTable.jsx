@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./CustomTable.module.scss";
 import CustomButton from "../button/CustomButton";
 
 const CustomTable = ({
-  tableHeaders,
-  tableRows,
+  tableHeaders = [],
+  tableRows = [],
   headersToSort = [],
+  onRowClick,
   ...props
 }) => {
   const [sortParameters, setSortParameters] = useState({
@@ -40,7 +41,7 @@ const CustomTable = ({
       : order * (firstCell - secondCell);
   }
 
-  const sortedRows =
+  const sortedRows = useMemo(() => (
     sortParameters.sortOrder !== null
       ? [...tableRows].sort((firstCell, SecondCell) => {
           return compareCells(
@@ -49,7 +50,9 @@ const CustomTable = ({
             sortParameters.sortOrder === "inc" ? 1 : -1
           );
         })
-      : tableRows;
+      : tableRows
+  ), [sortParameters, tableRows]);
+    
 
   return (
     <table {...props} className={styles.customTable}>
@@ -76,7 +79,11 @@ const CustomTable = ({
       </thead>
       <tbody>
         {sortedRows.map((row, rowIndex) => (
-          <tr key={rowIndex}>
+          <tr key={rowIndex} id={rowIndex} onClick={
+            (e) => {
+              onRowClick(e.target.closest('tr').firstChild.textContent);
+            }
+          }>
             {row.map((cell, cellIndex) => (
               <td key={cellIndex}>{cell}</td>
             ))}
