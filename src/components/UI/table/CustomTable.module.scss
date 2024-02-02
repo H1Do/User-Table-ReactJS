@@ -4,7 +4,7 @@
     width: 100%;
 
     thead {
-        background-color: rgba(255,255,255,0.3);
+        background-color: rgba(255, 255, 255, 0.3);
     }
 
     th {
@@ -12,13 +12,25 @@
         overflow: auto;
     }
 
+    .tableCellInner {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.5em;
+
+        button {
+            cursor: pointer;
+            font-size: 0.5em;
+            height: 60px;
+        }
+    }
+
     tbody {
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     tr {
-        &:hover {
-            background-color: rgba(255,255,255,0.3);
+        &:not(.headerRow):hover {
+            background-color: rgba(255, 255, 255, 0.3);
         }
     }
 
@@ -26,7 +38,7 @@
         font-size: 0.875em;
         min-width: 50px;
         padding: 10px 5px;
-        
-        border-bottom: solid 1px rgba(255,255,255,0.1);
+
+        border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     }
 }

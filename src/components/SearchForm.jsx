@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
-import styles from '../styles/SearchForm.module.scss';
-import CustomSelect from './UI/select/CustomSelect';
-import CustomInput from './UI/input/CustomInput';
-import CustomButton from './UI/button/CustomButton';
+import React, { useState } from "react";
+import styles from "../styles/SearchForm.module.scss";
+import CustomSelect from "./UI/select/CustomSelect";
+import CustomInput from "./UI/input/CustomInput";
+import CustomButton from "./UI/button/CustomButton";
 
-const SearchForm = ({ setValue, ...props }) => {
+const SearchForm = ({
+  setValue,
+  selectOptions = [{ text: "", value: "" }],
+  ...props
+}) => {
   const [searchOption, setSearchOption] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const selectOptions = [
-    { text: "Фамилии", value: "lastName", },
-    { text: "Имени", value: "firstName", },
-    { text: "Отчеству", value: "maidenName", },
-    { text: "Возрасту", value: "age", },
-    { text: "Полу", value: "gender", },
-    { text: "Городу", value: "address.city", },
-    { text: "Адресу", value: "address.address", },
-  ]
 
   function searchFunction() {
     if (searchOption && searchQuery) {
       setValue(`/filter?key=${searchOption}&value=${searchQuery}`);
     } else {
-      setValue('');
+      setValue("");
     }
   }
 
   return (
-    <form {...props} onSubmit={(e) => {
-      e.preventDefault();
-      searchFunction();
-    }} className={styles.searchForm}>
-      <span>Искать по</span>
-      <CustomSelect option={searchOption} options={selectOptions} setOption={setSearchOption} />
-      <CustomInput text={searchQuery} setText={setSearchQuery} placeholder="Введите запрос (Регистры учитываются)" />
+    <form
+      {...props}
+      onSubmit={(e) => {
+        e.preventDefault();
+        searchFunction();
+      }}
+      className={styles.searchForm}
+    >
+      <label htmlFor="searchInput">Искать по</label>
+      <CustomSelect
+        id="searchInput"
+        option={searchOption}
+        options={selectOptions}
+        setOption={setSearchOption}
+      />
+      <CustomInput
+        text={searchQuery}
+        setText={setSearchQuery}
+        placeholder="Введите запрос (Регистры учитываются)"
+      />
       <CustomButton onClick={searchFunction}>Поиск</CustomButton>
     </form>
   );
-}
+};
 
 export default SearchForm;
