@@ -8,7 +8,7 @@
     border: 1px solid #fff;
     border-radius: 10px;
     gap: 10px;
-    width: 50%;
+    width: max(340px, 50%);
 
     select {
         grid-column: 3 span;

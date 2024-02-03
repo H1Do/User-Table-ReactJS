@@ -41,18 +41,19 @@ const CustomTable = ({
       : order * (firstCell - secondCell);
   }
 
-  const sortedRows = useMemo(() => (
-    sortParameters.sortOrder !== null
-      ? [...tableRows].sort((firstCell, SecondCell) => {
-          return compareCells(
-            firstCell[sortParameters.indexOfSort],
-            SecondCell[sortParameters.indexOfSort],
-            sortParameters.sortOrder === "inc" ? 1 : -1
-          );
-        })
-      : tableRows
-  ), [sortParameters, tableRows]);
-    
+  const sortedRows = useMemo(
+    () =>
+      sortParameters.sortOrder !== null
+        ? [...tableRows].sort((firstCell, SecondCell) => {
+            return compareCells(
+              firstCell[sortParameters.indexOfSort],
+              SecondCell[sortParameters.indexOfSort],
+              sortParameters.sortOrder === "inc" ? 1 : -1
+            );
+          })
+        : tableRows,
+    [sortParameters, tableRows]
+  );
 
   return (
     <table {...props} className={styles.customTable}>
@@ -64,12 +65,13 @@ const CustomTable = ({
                 {header}
                 {headersToSort.includes(header) ? (
                   <CustomButton onClick={() => handleSort(header)}>
-                    {sortParameters.sortBy === header &&
+                    {(sortParameters.sortBy === header) ?
                     sortParameters.sortOrder === "inc"
                       ? "Сортировка по возрастанию"
                       : sortParameters.sortOrder === "dec"
                       ? "Сортировка по убыванию"
-                      : "Без сортировки"}
+                      : "Без сортировки"
+                    : "Без сортировки"}
                   </CustomButton>
                 ) : null}
               </div>
@@ -79,11 +81,13 @@ const CustomTable = ({
       </thead>
       <tbody>
         {sortedRows.map((row, rowIndex) => (
-          <tr key={rowIndex} id={rowIndex} onClick={
-            (e) => {
-              onRowClick(e.target.closest('tr').firstChild.textContent);
-            }
-          }>
+          <tr
+            key={rowIndex}
+            id={rowIndex}
+            onClick={(e) => {
+              onRowClick(e.target.closest("tr").firstChild.textContent);
+            }}
+          >
             {row.map((cell, cellIndex) => (
               <td key={cellIndex}>{cell}</td>
             ))}
