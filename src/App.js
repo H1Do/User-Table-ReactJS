@@ -26,7 +26,7 @@ function App() {
 
   function onRowClick(id) {
     const user = data.filter(user => user.id == id)[0];
-    
+
     setModalContent(
       `ФИО:           ${user.lastName + ' ' + user.firstName + ' ' + user.maidenName}
       Возраст:        ${user.age}
@@ -37,19 +37,28 @@ function App() {
       Email-адрес:    ${user.email}
       `
     );
-    
+
     setModal(true);
   }
 
   function getData(url, parameters) {
     fetch(url + parameters)
-      .then(res => res.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response wasn\'t ok')
+        }
+        return response.json();
+      })
       .then(result => {
         if (result.users) {
           setData(result.users);
+        } else {
+          throw new Error('No data found');
         }
       })
-      .catch(error => { throw error })
+      .catch(
+        (error) => console.log(error.message)
+      )
   }
 
   function ObjectsToArrays(objectsArray) {
@@ -72,7 +81,7 @@ function App() {
   return (
     <div className="App">
       <Modal visible={modal} setVisible={setModal}>
-        <p style={{whiteSpace: "pre-line"}}>
+        <p style={{ whiteSpace: "pre-line" }}>
           {modalContent}
         </p>
       </Modal>

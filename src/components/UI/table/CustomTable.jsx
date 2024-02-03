@@ -65,13 +65,13 @@ const CustomTable = ({
                 {header}
                 {headersToSort.includes(header) ? (
                   <CustomButton onClick={() => handleSort(header)}>
-                    {(sortParameters.sortBy === header) ?
-                    sortParameters.sortOrder === "inc"
-                      ? "Сортировка по возрастанию"
-                      : sortParameters.sortOrder === "dec"
-                      ? "Сортировка по убыванию"
-                      : "Без сортировки"
-                    : "Без сортировки"}
+                    {sortParameters.sortBy === header
+                      ? sortParameters.sortOrder === "inc"
+                        ? "Сортировка по возрастанию"
+                        : sortParameters.sortOrder === "dec"
+                        ? "Сортировка по убыванию"
+                        : "Без сортировки"
+                      : "Без сортировки"}
                   </CustomButton>
                 ) : null}
               </div>
