@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/User-table-react-js/static/css/main.51c479ee.css",
-    "main.js": "/User-table-react-js/static/js/main.fb33ad98.js",
+    "main.css": "/User-table-react-js/static/css/main.d362f90f.css",
+    "main.js": "/User-table-react-js/static/js/main.9037730c.js",
     "static/media/Roboto-Bold.woff2": "/User-table-react-js/static/media/Roboto-Bold.0919898f75909abec121.woff2",
     "static/media/Roboto-Regular.woff2": "/User-table-react-js/static/media/Roboto-Regular.727e3c83bd6c9c8e3b50.woff2",
     "index.html": "/User-table-react-js/index.html",
-    "main.51c479ee.css.map": "/User-table-react-js/static/css/main.51c479ee.css.map",
-    "main.fb33ad98.js.map": "/User-table-react-js/static/js/main.fb33ad98.js.map"
+    "main.d362f90f.css.map": "/User-table-react-js/static/css/main.d362f90f.css.map",
+    "main.9037730c.js.map": "/User-table-react-js/static/js/main.9037730c.js.map"
   },
   "entrypoints": [
-    "static/css/main.51c479ee.css",
-    "static/js/main.fb33ad98.js"
+    "static/css/main.d362f90f.css",
+    "static/js/main.9037730c.js"
   ]
 }
