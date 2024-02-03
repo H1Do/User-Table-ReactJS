@@ -1,4 +1,9 @@
 .App {
+    background: linear-gradient(to right, #25c481, #25b7c4);
+    color: #fff;
+}
+
+.content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,10 +12,11 @@
     min-height: 100svh;
     margin: 0 auto;
 
-    background: linear-gradient(to right, #25c481, #25b7c4);
-    color: #fff;
-
     h1 {
         margin: clamp(5px, 1.3vw, 25px);
     }
+}
+
+.loaderWrapper {
+    margin-top: 50px;
 }

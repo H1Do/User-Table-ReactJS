@@ -3,17 +3,25 @@ import './styles/App.scss';
 import CustomTable from './components/UI/table/CustomTable';
 import SearchForm from './components/SearchForm';
 import Modal from './components/UI/modal/Modal'
+import UserService from './API/UserService';
+import Loader from './components/UI/loader/Loader';
+import { useFetching } from './components/hooks/useFetching';
 
 function App() {
   const [data, setData] = useState([]);
   const [parameters, setParameters] = useState("");
   const [modal, setModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [fetchUsers, isUsersLoading, usersError] = useFetching(async () => {
+    const result = await UserService.getData(URL, parameters);
+    setData(result);
+  });
 
+  const tableRows = ObjectsToArrays(data);
   const URL = 'https://dummyjson.com/users';
   const headersToSort = ["ФИО", "Возраст", "Пол", "Адрес"];
   const tableHeaders = ["id", "ФИО", "Возраст", "Пол", "Номер телефона", "Адрес"];
-  const tableRows = ObjectsToArrays(data);
+
   const selectOptions = [
     { text: "Фамилии", value: "lastName", },
     { text: "Имени", value: "firstName", },
@@ -41,28 +49,8 @@ function App() {
     setModal(true);
   }
 
-  function getData(url, parameters) {
-    fetch(url + parameters)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response wasn\'t ok')
-        }
-        return response.json();
-      })
-      .then(result => {
-        if (result.users) {
-          setData(result.users);
-        } else {
-          throw new Error('No data found');
-        }
-      })
-      .catch(
-        (error) => console.log(error.message)
-      )
-  }
-
   function ObjectsToArrays(objectsArray) {
-    return objectsArray.map(user =>
+    return (Array.isArray(objectsArray)) ? objectsArray.map(user =>
       [
         user.id,
         user.lastName + ' ' + user.firstName + ' ' + user.maidenName,
@@ -71,11 +59,11 @@ function App() {
         user.phone,
         user.address.city + ' ' + user.address.address,
       ]
-    )
+    ) : []
   }
 
   useEffect(() => {
-    getData(URL, parameters);
+    fetchUsers();
   }, [parameters]);
 
   return (
@@ -85,15 +73,30 @@ function App() {
           {modalContent}
         </p>
       </Modal>
-      <h1>Список пользователей</h1>
-      <SearchForm setValue={setParameters} selectOptions={selectOptions} />
-      {
-        tableRows.length
-          ?
-          <CustomTable tableHeaders={tableHeaders} tableRows={tableRows} headersToSort={headersToSort} onRowClick={onRowClick} />
-          :
-          <h1>Ничего не найдено!</h1>
-      }
+      <main className='content'>
+        <h1>Список пользователей</h1>
+        <SearchForm setValue={setParameters} selectOptions={selectOptions} />
+        {
+          tableRows.length
+            ?
+            <CustomTable tableHeaders={tableHeaders} tableRows={tableRows} headersToSort={headersToSort} onRowClick={onRowClick} />
+            :
+            usersError
+              ?
+              <>
+                <h1>Произошла ошибка</h1>
+                <p>{usersError}</p>
+              </>
+              :
+              isUsersLoading
+                ?
+                <div className='loaderWrapper'>
+                  <Loader />
+                </div>
+                :
+                <h1>Ничего не найдено!</h1>
+        }
+      </main>
     </div>
   );
 }
